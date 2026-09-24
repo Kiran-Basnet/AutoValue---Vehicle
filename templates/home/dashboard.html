@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | AutoValue{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-page">
+
+    <section class="dashboard-hero">
+        <div class="hero-content">
+            <p class="dashboard-eyebrow">
+                AUTOVALUE / VEHICLE INTELLIGENCE
+            </p>
+
+            <h1>
+                Know what your<br>
+                vehicle is <span>worth.</span>
+            </h1>
+
+            <p class="hero-description">
+                Estimate your vehicle's resale value using
+                machine-learning based valuation.
+            </p>
+
+            <div class="hero-actions">
+                <a href="{% url 'valuation' %}" class="primary-action">
+                    Start a valuation
+                    <span>→</span>
+                </a>
+
+                <a href="{% url 'history' %}" class="secondary-action">
+                    View history
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-circle"></div>
+
+            <div class="hero-car-card">
+                <span>AI POWERED</span>
+                <strong>VEHICLE</strong>
+                <strong>VALUATION</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-stats">
+
+        <div class="stat-card stat-dark">
+            <span class="stat-label">YOUR VALUATIONS</span>
+            <strong>{{ total_predictions }}</strong>
+            <p>Predictions generated</p>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">LATEST VEHICLE</span>
+
+            {% if latest_vehicle %}
+                <h3>
+                    {{ latest_vehicle.brand }}
+                    {{ latest_vehicle.model }}
+                </h3>
+
+                <p>
+                    {{ latest_vehicle.year }}
+                    ·
+                    {{ latest_vehicle.mileage }} km
+                </p>
+            {% else %}
+                <h3>No valuation yet</h3>
+                <p>Start your first vehicle valuation.</p>
+            {% endif %}
+        </div>
+
+        <div class="stat-card stat-price">
+            <span class="stat-label">LATEST ESTIMATE</span>
+
+            {% if latest_vehicle %}
+                <strong>
+                    Rs. {{ latest_vehicle.predicted_price|floatformat:0 }}
+                </strong>
+
+                <p>Estimated resale value</p>
+            {% else %}
+                <strong>—</strong>
+                <p>No estimate available</p>
+            {% endif %}
+        </div>
+
+    </section>
+
+    {% if latest_vehicle %}
+    <section class="latest-section">
+
+        <div class="section-heading">
+            <div>
+                <p class="dashboard-eyebrow">RECENT ACTIVITY</p>
+                <h2>Your latest valuation</h2>
+            </div>
+
+            <a href="{% url 'history' %}">
+                View all →
+            </a>
+        </div>
+
+        <div class="latest-valuation">
+
+            <div class="vehicle-info">
+
+                <span class="vehicle-number">01</span>
+
+                <div>
+                    <p class="vehicle-label">VEHICLE</p>
+
+                    <h3>
+                        {{ latest_vehicle.brand }}
+                        {{ latest_vehicle.model }}
+                    </h3>
+
+                    <p>
+                        {{ latest_vehicle.year }}
+                        ·
+                        {{ latest_vehicle.mileage }} km
+                        ·
+                        {{ latest_vehicle.location }}
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="latest-price">
+
+                <span>ESTIMATED RESALE VALUE</span>
+
+                <strong>
+                    Rs. {{ latest_vehicle.predicted_price|floatformat:0 }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+    {% endif %}
+
+    <section class="how-section">
+
+        <div class="section-heading">
+            <div>
+                <p class="dashboard-eyebrow">SIMPLE PROCESS</p>
+                <h2>How AutoValue works</h2>
+            </div>
+        </div>
+
+        <div class="process-grid">
+
+            <div class="process-card">
+                <span>01</span>
+                <h3>Enter vehicle details</h3>
+                <p>
+                    Provide information such as brand, model,
+                    year, mileage and condition.
+                </p>
+            </div>
+
+            <div class="process-card">
+                <span>02</span>
+                <h3>Machine learning analysis</h3>
+                <p>
+                    Your vehicle information is processed by
+                    the trained prediction model.
+                </p>
+            </div>
+
+            <div class="process-card">
+                <span>03</span>
+                <h3>Get an estimate</h3>
+                <p>
+                    Receive an estimated resale price based
+                    on the submitted vehicle information.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+</section>
+
+{% endblock %}

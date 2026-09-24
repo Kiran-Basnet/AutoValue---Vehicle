@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}AutoValue{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="nav-container">
+
+        <a href="{% url 'home' %}" class="logo">
+            AutoValue
+        </a>
+
+        <nav>
+    {% if user.is_authenticated %}
+
+        <a href="{% url 'home' %}">Dashboard</a>
+        <a href="{% url 'valuation' %}">Valuation</a>
+        <a href="{% url 'history' %}">History</a>
+        <a href="{% url 'logout' %}">Logout</a>
+
+    {% else %}
+
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+
+    {% endif %}
+</nav>
+
+    </div>
+</header>
+
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+
+<footer>
+    <p>AutoValue — Vehicle Resale Price Prediction System</p>
+</footer>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

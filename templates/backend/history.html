@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction History | AutoValue{% endblock %}
+
+{% block content %}
+
+<section class="history-page">
+
+    <div class="history-header">
+
+        <div>
+            <p class="dashboard-eyebrow">
+                AUTOVALUE / SAVED RECORDS
+            </p>
+
+            <h1>
+                Your valuation<br>
+                <span>history.</span>
+            </h1>
+
+            <p>
+                Review previous vehicle estimates generated
+                through your account.
+            </p>
+        </div>
+
+        <a href="{% url 'valuation' %}" class="history-new-button">
+            New valuation
+            <span>→</span>
+        </a>
+
+    </div>
+
+
+    <div class="history-summary">
+
+        <div>
+            <span>YOUR RECORDS</span>
+            <strong>{{ vehicles|length }}</strong>
+        </div>
+
+        <div>
+            <span>ACCOUNT</span>
+            <strong>{{ user.username }}</strong>
+        </div>
+
+    </div>
+
+
+    {% if vehicles %}
+
+        <div class="history-list">
+
+            {% for vehicle in vehicles %}
+
+                <article class="history-record">
+
+                    <div class="history-record-number">
+                        {{ forloop.counter|stringformat:"02d" }}
+                    </div>
+
+
+                    <div class="history-record-main">
+
+                        <div class="history-record-heading">
+
+                            <div>
+                                <p class="history-record-label">
+                                    VEHICLE
+                                </p>
+
+                                <h2>
+                                    {{ vehicle.brand }}
+                                    {{ vehicle.model }}
+                                </h2>
+
+                                <p class="history-record-meta">
+                                    {{ vehicle.year }}
+                                    ·
+                                    {{ vehicle.mileage }} km
+                                    ·
+                                    {{ vehicle.location }}
+                                </p>
+                            </div>
+
+                            <span class="history-condition">
+                                {{ vehicle.condition }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="history-record-details">
+
+                            <div>
+                                <span>FUEL</span>
+                                <strong>{{ vehicle.fuel_type }}</strong>
+                            </div>
+
+                            <div>
+                                <span>TRANSMISSION</span>
+                                <strong>{{ vehicle.transmission }}</strong>
+                            </div>
+
+                            <div>
+                                <span>ENGINE</span>
+                                <strong>{{ vehicle.engine_capacity }} CC</strong>
+                            </div>
+
+                            <div>
+                                <span>DATE</span>
+                                <strong>
+                                    {{ vehicle.created_at|date:"M d, Y" }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="history-record-price">
+
+                        <span>ESTIMATED VALUE</span>
+
+                        <strong>
+                            Rs. {{ vehicle.predicted_price|floatformat:0 }}
+                        </strong>
+
+                        <small>
+                            {{ vehicle.created_at|date:"h:i A" }}
+                        </small>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="history-empty">
+
+            <div class="history-empty-icon">
+                AV
+            </div>
+
+            <h2>
+                No valuations yet.
+            </h2>
+
+            <p>
+                Your saved vehicle predictions will appear here
+                after you complete your first valuation.
+            </p>
+
+            <a href="{% url 'valuation' %}">
+                Start your first valuation →
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

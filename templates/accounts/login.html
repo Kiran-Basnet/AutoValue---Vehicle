@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Login | AutoValue{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="auth-shell">
+
+        <div class="auth-brand">
+            <span>AV</span>
+        </div>
+
+        <div class="auth-header">
+            <p class="auth-eyebrow">AUTOVALUE / ACCOUNT</p>
+
+            <h1>
+                Welcome<br>
+                <span>back.</span>
+            </h1>
+
+            <p>
+                Sign in to access your vehicle valuations
+                and prediction history.
+            </p>
+        </div>
+
+
+        <form method="POST" class="auth-form">
+
+            {% csrf_token %}
+
+            {% if error %}
+                <div class="auth-error">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+
+            <div class="auth-field">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="auth-field">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit" class="auth-submit">
+                Sign in
+                <span>→</span>
+            </button>
+
+        </form>
+
+
+        <div class="auth-footer">
+
+            <p>
+                Don't have an account?
+                <a href="{% url 'register' %}">
+                    Create one
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

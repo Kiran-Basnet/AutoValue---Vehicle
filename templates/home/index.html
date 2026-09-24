@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}AutoValue | Vehicle Valuation{% endblock %}
+
+{% block content %}
+
+<section class="valuation-page">
+
+    <div class="valuation-header">
+
+        <p class="eyebrow">AUTOVALUE</p>
+
+        <h1>
+            Know your vehicle's
+            <span>resale value.</span>
+        </h1>
+
+        <p>
+            Estimate the resale value of your vehicle using
+            machine learning.
+        </p>
+
+        <br>
+
+        <a href="{% url 'valuation' %}">
+            Start Vehicle Valuation →
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Register | AutoValue{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="auth-shell">
+
+        <div class="auth-brand">
+            <span>AV</span>
+        </div>
+
+        <div class="auth-header">
+
+            <p class="auth-eyebrow">
+                AUTOVALUE / ACCOUNT
+            </p>
+
+            <h1>
+                Create your<br>
+                <span>account.</span>
+            </h1>
+
+            <p>
+                Create an account to save vehicle valuations
+                and track your prediction history.
+            </p>
+
+        </div>
+
+
+        <form method="POST" class="auth-form">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="auth-error">
+                    {{ form.non_field_errors }}
+                </div>
+
+            {% endif %}
+
+
+            <div class="auth-field">
+
+                <label for="{{ form.username.id_for_label }}">
+                    Username
+                </label>
+
+                {{ form.username }}
+
+                {% if form.username.errors %}
+                    <div class="auth-field-error">
+                        {{ form.username.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <div class="auth-field">
+
+                <label for="{{ form.password1.id_for_label }}">
+                    Password
+                </label>
+
+                {{ form.password1 }}
+
+                {% if form.password1.errors %}
+                    <div class="auth-field-error">
+                        {{ form.password1.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <div class="auth-field">
+
+                <label for="{{ form.password2.id_for_label }}">
+                    Confirm password
+                </label>
+
+                {{ form.password2 }}
+
+                {% if form.password2.errors %}
+                    <div class="auth-field-error">
+                        {{ form.password2.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <button type="submit" class="auth-submit">
+                Create account
+                <span>→</span>
+            </button>
+
+        </form>
+
+
+        <div class="auth-footer">
+
+            <p>
+                Already have an account?
+                <a href="{% url 'login' %}">
+                    Sign in
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

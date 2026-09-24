@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Valuation Result | AutoValue{% endblock %}
+
+{% block content %}
+
+<section class="result-page">
+
+    <div class="result-top">
+
+        <div>
+            <p class="dashboard-eyebrow">
+                AUTOVALUE / VALUATION COMPLETE
+            </p>
+
+            <h1>
+                Your vehicle's<br>
+                estimated <span>value.</span>
+            </h1>
+
+            <p>
+                Based on the vehicle information submitted,
+                our machine-learning model generated the following estimate.
+            </p>
+        </div>
+
+        <div class="result-status">
+            <span>✓</span>
+            Prediction complete
+        </div>
+
+    </div>
+
+
+    <!-- PRICE HERO -->
+
+    <section class="result-price-card">
+
+        <div class="result-price-content">
+
+            <span class="result-price-label">
+                ESTIMATED RESALE VALUE
+            </span>
+
+            <div class="result-price">
+                Rs. {{ predicted_price|floatformat:0 }}
+            </div>
+
+            <p>
+                Machine-learning generated estimate
+            </p>
+
+        </div>
+
+        <div class="result-price-mark">
+            <span>AV</span>
+        </div>
+
+    </section>
+
+
+    <!-- VEHICLE SUMMARY -->
+
+    <section class="result-details">
+
+        <div class="result-section-heading">
+
+            <div>
+                <p class="dashboard-eyebrow">
+                    VEHICLE PROFILE
+                </p>
+
+                <h2>
+                    Submitted information
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="result-detail-grid">
+
+            <div>
+                <span>BRAND</span>
+                <strong>{{ vehicle.brand }}</strong>
+            </div>
+
+            <div>
+                <span>MODEL</span>
+                <strong>{{ vehicle.model }}</strong>
+            </div>
+
+            <div>
+                <span>YEAR</span>
+                <strong>{{ vehicle.year }}</strong>
+            </div>
+
+            <div>
+                <span>MILEAGE</span>
+                <strong>{{ vehicle.mileage }} km</strong>
+            </div>
+
+            <div>
+                <span>ENGINE</span>
+                <strong>{{ vehicle.engine_capacity }} CC</strong>
+            </div>
+
+            <div>
+                <span>FUEL</span>
+                <strong>{{ vehicle.fuel_type }}</strong>
+            </div>
+
+            <div>
+                <span>TRANSMISSION</span>
+                <strong>{{ vehicle.transmission }}</strong>
+            </div>
+
+            <div>
+                <span>CONDITION</span>
+                <strong>{{ vehicle.condition }}</strong>
+            </div>
+
+            <div>
+                <span>LOCATION</span>
+                <strong>{{ vehicle.location }}</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXPLANATION -->
+
+    <section class="result-method">
+
+        <div class="method-number">
+            01
+        </div>
+
+        <div>
+
+            <p class="dashboard-eyebrow">
+                HOW THE ESTIMATE WAS GENERATED
+            </p>
+
+            <h2>
+                Machine learning analysis
+            </h2>
+
+            <p>
+                The submitted vehicle characteristics were sent to the
+                prediction service and processed by the trained vehicle
+                price prediction model.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACTIONS -->
+
+    <div class="result-page-actions">
+
+        <a
+            href="{% url 'valuation' %}"
+            class="result-primary-action"
+        >
+            Value another vehicle
+            <span>→</span>
+        </a>
+
+        <a
+            href="{% url 'history' %}"
+            class="result-secondary-action"
+        >
+            View prediction history
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

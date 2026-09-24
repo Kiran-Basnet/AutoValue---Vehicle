@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block title %}Vehicle Valuation | AutoValue{% endblock %}
+
+{% block content %}
+
+<section class="valuation-page">
+
+    <div class="valuation-header">
+
+        <p class="eyebrow">VEHICLE VALUATION</p>
+
+        <h1>
+            Estimate your vehicle's
+            <span>resale value.</span>
+        </h1>
+
+        <p>
+            Enter your vehicle information below. Our machine-learning
+            system will estimate its resale value.
+        </p>
+
+    </div>
+
+
+    <div class="valuation-card">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="form-error">
+                    Please correct the errors below.
+                </div>
+            {% endif %}
+
+            {% if api_error %}
+                <div class="error-message">
+                    {{ api_error }}
+                </div>
+            {% endif %}
+
+
+            <div class="form-section">
+
+                <h2>Vehicle Information</h2>
+
+                <p class="section-description">
+                    Tell us about the vehicle you want to evaluate.
+                </p>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <div class="autocomplete">
+                            <label for="id_brand">Brand</label>
+
+                            <input
+                                type="text"
+                                name="brand"
+                                id="id_brand"
+                                placeholder="Toyota"
+                                autocomplete="off"
+                                value="{{ form.brand.value|default:'' }}"
+                            >
+
+                            <div id="brand-suggestions" class="suggestions"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="autocomplete">
+
+                        <label for="id_model">Model</label>
+
+                        <input
+                            type="text"
+                            name="model"
+                            id="id_model"
+                            placeholder="Type or select model"
+                            autocomplete="off"
+                            value="{{ form.model.value|default:'' }}"
+                        >
+
+                        <div
+                            id="model-suggestions"
+                            class="suggestions"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="{{ form.year.id_for_label }}">Year</label>
+                        {{ form.year }}
+                        <small id="year-hint"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.mileage.id_for_label }}">Mileage</label>
+                        {{ form.mileage }}
+                        <small id="mileage-hint"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.engine_capacity.id_for_label }}">Engine Capacity</label>
+                        {{ form.engine_capacity }}
+                        <small id="engine-hint"></small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="{{ form.fuel_type.id_for_label }}">
+                            Fuel Type
+                        </label>
+
+                        {{ form.fuel_type }}
+
+                        {{ form.fuel_type.errors }}
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="{{ form.transmission.id_for_label }}">
+                            Transmission
+                        </label>
+
+                        {{ form.transmission }}
+
+                        {{ form.transmission.errors }}
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="{{ form.condition.id_for_label }}">
+                            Condition
+                        </label>
+
+                        {{ form.condition }}
+
+                        {{ form.condition.errors }}
+                    </div>
+
+                </div>
+
+
+                <div class="autocomplete">
+
+                    <label for="id_location">Location</label>
+
+                    <input
+                        type="text"
+                        name="location"
+                        id="id_location"
+                        placeholder="Type or select location"
+                        autocomplete="off"
+                        value="{{ form.location.value|default:'' }}"
+                    >
+
+                    <div
+                        id="location-suggestions"
+                        class="suggestions"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-footer">
+
+                <p>
+                    Your information will be used to generate
+                    an estimated vehicle value.
+                </p>
+
+                <button type="submit">
+                    Predict Resale Price
+                    <span>→</span>
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
